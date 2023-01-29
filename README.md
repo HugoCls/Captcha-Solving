@@ -29,8 +29,3 @@ Here is my Captcha playlist https://www.youtube.com/watch?v=nxSKQm3I88s&list=PL_
 In these videos you will only see the resolution, meaning only the script working to get a better understanding of my code.
 
 Each captcha is explained separetely in the right folder.
-
-
-```python
-
-```
