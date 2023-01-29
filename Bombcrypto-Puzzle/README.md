@@ -117,8 +117,3 @@ Here is my [Captcha playlist](https://www.youtube.com/watch?v=nxSKQm3I88s&list=P
 
 In these videos you will only see the resolution, meaning only the script working to get a better understanding of my code.
 
-
-
-```python
-
-```
