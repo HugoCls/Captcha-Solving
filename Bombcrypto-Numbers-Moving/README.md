@@ -28,9 +28,8 @@ Solving this captcha only needed three steps:
 In a first step we need all numbers to be in our dataset:
 
 `L,w,h=templ.matchtemplate('robot')` from the `cv2.matchtemplate`function.
-<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/0.png?raw=true" width="50%" height="50%">
-<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/1.png?raw=true" width="50%" height="50%">
-<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/2.png?raw=true" width="50%" height="50%">
+<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/0.png?raw=true" width="10%" height="10%">
+<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/1.png?raw=true" width="5%" height="5%"> <img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/2.png?raw=true" width="5%" height="5%">
 Once we have the starting point we use the fact that the first pixels are all in a brown scale:
 
 
