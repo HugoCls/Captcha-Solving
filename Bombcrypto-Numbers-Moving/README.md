@@ -29,7 +29,7 @@ Firstly in every steps, the image is transformed into black and white, this is d
 
 In a first step we need all numbers to be in our dataset:
 
-<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/0.png?raw=true" width="5%" height="5%"> <img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/1.png?raw=true" width="5%" height="5%"> <img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/2.png?raw=true" width="5%" height="5%"> ... <img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/9.png?raw=true" width="5%" height="5%">
+<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/0.png?raw=true" width="5%" height="5%"> <img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/1.png?raw=true" width="3%" height="3%"> <img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/2.png?raw=true" width="5%" height="5%"> ... <img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/9.png?raw=true" width="5%" height="5%">
 
 Then we use, `L,w,h=templ.matchtemplate('img')` from the `cv2.matchtemplate` function to get the numbers in the right order:
 
