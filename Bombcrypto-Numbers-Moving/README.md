@@ -22,52 +22,69 @@ PUT OTHER IMAGES
 
 Solving this captcha only needed three steps:
 
+Firstly in every steps, the image is transformed into black and white, this is done in the `screenshot()` function.
+
 <big>1. Determining the **foreground number**</big>
 ***
 
 In a first step we need all numbers to be in our dataset:
 
-`L,w,h=templ.matchtemplate('robot')` from the `cv2.matchtemplate`function.
-<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/0.png?raw=true" width="10%" height="10%">
-<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/1.png?raw=true" width="5%" height="5%"> <img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/2.png?raw=true" width="5%" height="5%">
-Once we have the starting point we use the fact that the first pixels are all in a brown scale:
+<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/0.png?raw=true" width="5%" height="5%"> <img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/1.png?raw=true" width="5%" height="5%"> <img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/2.png?raw=true" width="5%" height="5%"> ... <img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/9.png?raw=true" width="5%" height="5%">
 
-
-
+Then we use, `L,w,h=templ.matchtemplate('img')` from the `cv2.matchtemplate` function to get the numbers in the right order:
 
 ```python
-def get_ystart():
-    L,w,h=templ.matchtemplate('robot')
-    x,y=L[0][0],L[0][1]
-    x0,y0=x-50,y+70
-    j=1
-    while True:
-        cs.move(x0,y0+8*j)
-        R,G,B=cs.pixelRGB(x0,y0+8*j)
-        if (R,G,B)==(181,112,82):
+def find_numbers_fg():
+    screenshot() #Saves a screenshot to work with
+    found_couples=[]
+    j=0
+    for number in ['0','1','2','3','4','5','6','7','8','9']:
+        L,w,h=templ.matchtemplate_cibled(number,'screenshot',0.95)
+        if len(L)>=1:
             j+=1
-        else:
+        for i in range(len(L)):
+            found_couples.append((number,L[i]))
+        if j>=3:
             break
-    return(y0+8*j+10)
+    couples=templ.points_in_couple_list(found_couples) #Removing duplicates
+    final_number=templ.order_couple_list(couples)
+    for i in range(len(final_number)):
+        final_number[i]=int(final_number[i])
+    return(final_number)
+```
+And you get something like that: `fg: ['5','6','9']`.
+
+<big>2. Determining the **background numbers**</big>
+***
+As I said, it was hard to detect directly the numbers because of the foreground numbers obstructing the detection.
+
+Usually `cv2.matchtemplate` is used with a 80% precision to detect the smaller image in the bigger one. And with the foreground numbers we can see that at least 30% of the image is obstructed so we may imagine that detecting with 80% precision may 1: not work 2: make him confuse the different numbers. 
+
+For exemple: if you have `1 2 3` on background and `0 0 0` on foreground,  `cv2.matchtemplate` may think that there is as much chance as `1` is a `1` or a `2`, a `7` and so on..
+
+And after some tests, it was confirmed that the results weren't so good and I couldn't use it in that way.
+
+Here is how I got around this problem:
+For each *background number*, which we will also call *moving number*, I created fairly small pieces of the top of the figure and the bottom of the figure, parts that were not reached by the numbers in the foreground, it went something like this:
+
+<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/bg_0.1.png?raw=true" width="5%" height="5%"><img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/bg_0.2.png?raw=true" width="5%" height="5%"><img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/bg_0.3.png?raw=true" width="5%" height="5%"><img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/bg_0.4.png?raw=true" width="5%" height="5%"><img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/bg_0.5.png?raw=true" width="5%" height="5%">
+...
+<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/bg_2.1.png?raw=true" width="5%" height="5%"><img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/bg_2.2.png?raw=true" width="5%" height="5%"><img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/bg_2.3.png?raw=true" width="5%" height="5%"><img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/bg_2.4.png?raw=true" width="5%" height="5%"><img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/bg_2.5.png?raw=true" width="5%" height="5%">
+...
+
+Then I was using `cv2.matchtemplate` with a 95% precision to know if this small image was in my screenshot. By multiplying the number of small pieces, I could reach a 90%+ detection of each figure.
+
+```python
+for number in ['0','1','2','3','4','5','6','7','8','9']:
+        L,w,h=templ.matchtemplate_cibled(number,'screenshot',0.95)
 ```
 
-We get (xmin,ymin), and in the same way we can get (xmax,ymax) and deduce (x,y) in the image.
+Note: This is a little bit more complicated but if you wanna see more about mathematics feel free to explore the following functions:```
+    - find_number
+    - find_numbers_bg
+    - number_models
+```
 
-<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Puzzle/images/README_IMAGES/find_piece.png?raw=true" width="50%" height="50%">
-
-<big>2. Locate the **centre of the empty piece** in the puzzle</big>
-***
-
-For this part we use the method seen in 1 but in reverse:
-
-- We test all the pixels **horizontaly** from **(x,y)**, and as long as we don't have **6 consecutive grey pixels**, we don't consider to be in the empty area.
-
-
-- Once we are in the empty area, we have to **get the end of the grey area** to get the middle.
-
-
-
-*PS: The data of the vertical centre of this area is not useful*
 
 <big>3. Calculate the location of the piece as a **% of the total puzzle**</big>
 ***
