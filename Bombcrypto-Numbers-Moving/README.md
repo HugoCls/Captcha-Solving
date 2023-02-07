@@ -17,7 +17,7 @@ PUT OTHER IMAGES
 - The foreground numbers make it difficult to detect those in the background because these are partly hidden.
 
 ## How I did it?
-**Warning**
+**⚠ Warning ⚠**
 > If you miss the basis of my captcha techniques I recommend you to first read Bombcrypto-Puzzle in my captcha solving repository.
 
 Here is a non-exhaustive list of steps to solve the captcha:
