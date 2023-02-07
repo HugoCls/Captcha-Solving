@@ -17,17 +17,20 @@ PUT OTHER IMAGES
 - The foreground numbers make it difficult to detect those in the background because these are partly hidden.
 
 ## How I did it?
-**⚠ Warning ⚠**
+**⚠ Warning:**
 > If you miss the basis of my captcha techniques I recommend you to first read Bombcrypto-Puzzle in my captcha solving repository.
 
-Here is a non-exhaustive list of steps to solve the captcha:
+Solving this captcha only needed three steps:
 
-<big>1. Locate the **centre of the piece** out of the puzzle</big>
+<big>1. Determining the **foreground number**</big>
 ***
 
-Frist we get the starting point by using `L,w,h=templ.matchtemplate('robot')` from the `cv2.matchtemplate`function.
-<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Puzzle/images/README_IMAGES/get_start_point.png?raw=true" width="50%" height="50%">
+In a first step we need all numbers to be in our dataset:
 
+`L,w,h=templ.matchtemplate('robot')` from the `cv2.matchtemplate`function.
+<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/0.png?raw=true" width="50%" height="50%">
+<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/1.png?raw=true" width="50%" height="50%">
+<img src="https://github.com/HugoCls/Captcha-Solving/blob/main/Bombcrypto-Numbers-Moving/images/2.png?raw=true" width="50%" height="50%">
 Once we have the starting point we use the fact that the first pixels are all in a brown scale:
 
 
