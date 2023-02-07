@@ -79,7 +79,8 @@ for number in ['0','1','2','3','4','5','6','7','8','9']:
         L,w,h=templ.matchtemplate_cibled(number,'screenshot',0.95)
 ```
 
-Note: This is a little bit more complicated but if you wanna see more about mathematics feel free to explore the following functions:```
+Note: This is a little bit more complicated but if you wanna see more about mathematics feel free to explore the following functions:
+```python
     - find_number
     - find_numbers_bg
     - number_models
