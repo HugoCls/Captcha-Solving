@@ -54,7 +54,11 @@ def find_numbers_fg():
 ```
 And you get something like that: `fg: ['5','6','9']`.
 
-<big>2. Determining the **background numbers**</big>
+<big>2. Start sliding the bar**</big>
+***
+We use cv2.matchtemplate to get the center of the yellow part of the bar, then we start from there and slide to the right while the background numbers are changing.
+
+<big>3. Determining the **background numbers**</big>
 ***
 As I said, it was hard to detect directly the numbers because of the foreground numbers obstructing the detection.
 
@@ -86,36 +90,11 @@ Note: This is a little bit more complicated but if you wanna see more about math
     - number_models
 ```
 
-
-<big>3. Calculate the location of the piece as a **% of the total puzzle**</big>
-***
-
-This is basic mathematics based on the total size of the rectangle.
-
-<big>4. **Drag the bar** by this %</big>
-***
-
-We can directly use `cv2.matchtemplate` or use the exact same process for the step 2 to get the center of the yellow part of the bar.
-
-This center allows us to **know the total size of the bar** and we can then **move from the %** we are looking for
-
-<big>5. **Fixing** the bar position</big>
-***
-
-As they changed the proportionality between the % of which you advance the bar and the % of which the image advances which was then no longer linear, I added a dynamic check as follows:
-
-
+<big>4. **Release the bar** when fg and bg numbers matches</big>
 
 ```python
-cs.mouse.press(cs.Button.left)
-[...]
-while still_grey(image,xmax-1,ymoy+15) and k<=100:
-                        image=ImageGrab.grab()
-                        pyautogui.moveTo(xbar+k,ycurseur,0.01)
-                        k+=1
-                    cs.mouse.release(cs.Button.left)
+    cs.mouse.release(cs.Button.left)
 ```
-
 
 ## Custom modules
 
@@ -132,5 +111,5 @@ while still_grey(image,xmax-1,ymoy+15) and k<=100:
 
 Here is my [Captcha playlist](https://www.youtube.com/watch?v=nxSKQm3I88s&list=PL_7_H9j4EBUPKgiBUpKZJKIzCvJqu0Cbb "Captcha on Youtube").
 
-In these videos you will only see the resolution, meaning only the script working to get a better understanding of my code.
+In these videos you will only see the resolution, meaning only the script working, to get a better understanding of my code.
 
