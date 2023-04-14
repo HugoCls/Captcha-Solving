@@ -113,7 +113,7 @@ while still_grey(image,xmax-1,ymoy+15) and k<=100:
 
 ## Exemples
 
-Here is my [Captcha playlist](https://www.youtube.com/watch?v=nxSKQm3I88s&list=PL_7_H9j4EBUPKgiBUpKZJKIzCvJqu0Cbb "Captcha on Youtube").
+Here is my [Captcha playlist on Youtube](https://www.youtube.com/watch?v=nxSKQm3I88s&list=PL_7_H9j4EBUPKgiBUpKZJKIzCvJqu0Cbb "Captcha on Youtube").
 
 In these videos you will only see the resolution, meaning only the script working to get a better understanding of my code.
 
