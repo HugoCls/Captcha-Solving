@@ -114,7 +114,7 @@ while still_grey(image,xmax-1,ymoy+15) and k<=100:
 ## Exemples
 
 Live resolution of the Puzzle-Captcha:
-<p align="center">
+<p align="left">
 	<img src="https://github.com/HugoCls/BOT-Bombcrypto/blob/main/data/images/readme/captcha.gif?raw=true" alt="Captcha" style="width: 100%;">
 </p>	
 
